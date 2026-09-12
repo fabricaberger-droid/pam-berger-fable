@@ -1,0 +1,28 @@
+// Acervo — valores conferidos no BRIEFING.md (seção 7). Sem fonte: "Sob orçamento".
+export const obras = [
+  { id: 'veu', nome: 'Véu de noiva bordado à mão', cat: 'Casamento', preco: 'Sob orçamento', img: 'img/veu-noiva-04.jpg', alt: 'Noiva sob o véu, com os bordados coloridos em primeiro plano', nota: 'Cauda longa em tule, bordado colorido aplicado, contando a história do casal.' },
+  { id: 'santiago', nome: 'Coleção Santiago, obra em quatro peças', cat: 'Maternidade', preco: 'R$ 1.500', img: 'img/santiago-06.jpg', alt: 'As peças da Coleção Santiago reunidas antes da entrega', nota: 'Brasão da família, menino com o balão, balão em lã e placa em acrílico. Uma só obra, um só valor.' },
+  { id: 'pm-joao', nome: 'Porta-maternidade, moldura 20×20', cat: 'Maternidade', preco: 'R$ 600', img: 'img/joao-porta-maternidade.jpg', alt: 'Porta-maternidade João, ursinho em lã e moldura de madeira' },
+  { id: 'pm-25', nome: 'Porta-maternidade, moldura 25×25', cat: 'Maternidade', preco: 'R$ 650', img: 'img/peca-02.jpg', alt: 'Moldura clara com o nome Antônio sobre listras azuis' },
+  { id: 'pm-30', nome: 'Porta-maternidade, moldura 30×30', cat: 'Maternidade', preco: 'R$ 680', img: 'img/peca-04.jpg', alt: 'Letra M bordada em azul com ursinho e o nome Mateus' },
+  { id: 'pm-custom', nome: 'Porta-maternidade, tamanho personalizado', cat: 'Maternidade', preco: 'Sob orçamento', img: 'img/peca-03.jpg', alt: 'Astronauta em lã segurando um balão entre as letras D e M' },
+  { id: 'ursinho', nome: 'Quadro ursinho', cat: 'Maternidade', preco: 'R$ 650', img: 'img/quadro-lorenzo.jpg', alt: 'Quadro com a letra L, ursinho e o nome Lorenzo, sobre xadrez azul' },
+  { id: 'bastidor-nome', nome: 'Bastidor com nome, 20 cm · Melina e o balão', cat: 'Maternidade', preco: 'R$ 460', img: 'img/peca-05.jpg', alt: 'Bastidor com balão colorido e o nome Melina' },
+  { id: 'cavalinho', nome: 'Bastidor com nome, 20 cm · Paulo e o cavalinho', cat: 'Maternidade', preco: 'R$ 460', img: 'img/cavalinho-paulo.jpg', alt: 'Cavalinho de balanço bordado em marrom e azul com o nome Paulo' },
+  { id: 'moldura-25', nome: 'Moldura 25×25', cat: 'Maternidade', preco: 'R$ 650', img: 'img/peca-07.jpg', alt: 'Moldura de madeira com a letra T e uma faixa com o nome' },
+  { id: 'tenista', nome: 'Trio vintage tenista', cat: 'Maternidade', preco: 'R$ 580', img: 'img/peca-10.jpg', alt: 'Moldura com a letra J e dois bastidores com ursinho tenista e raquetes' },
+  { id: 'menino-balao', nome: 'Dupla menino e balão', cat: 'Maternidade', preco: 'R$ 720', img: 'img/santiago-03.jpg', alt: 'Menino com o balão, em moldura, e o balão em lã no bastidor redondo' },
+  { id: 'quadriculado', nome: 'Quadriculado em lã', cat: 'Decoração', preco: 'R$ 610', img: 'img/macro-08.jpg', alt: 'Relevo do quadriculado em lã verde e cru' },
+  { id: 'palha', nome: 'Bordado em palha', cat: 'Decoração', preco: 'R$ 420', img: 'img/peca-12.jpg', alt: 'Dream big little one bordado sobre palha, em caixa de acrílico' },
+  { id: 'jardim', nome: 'Jardim em acrílico', cat: 'Decoração', preco: 'R$ 650', img: 'img/peca-11.jpg', alt: 'Caixa de acrílico com bastidor Laura e flores bordadas em relevo' },
+  { id: 'tutto', nome: 'Tutto Passa em moldura acrílica', cat: 'Decoração', preco: 'R$ 480', img: 'img/frase-van-gogh.jpg', alt: 'Frase de Van Gogh bordada em linho, dentro de moldura acrílica' },
+  { id: 'frase', nome: 'Frase em bastidor · coroa de flores', cat: 'Decoração', preco: 'R$ 420', img: 'img/peca-06.jpg', alt: 'Bastidor com frase bordada dentro de coroa de flores azuis' },
+  { id: 'frase-2', nome: 'Frase em bastidor · Nada te perturbe', cat: 'Decoração', preco: 'R$ 420', img: 'img/peca-08.jpg', alt: 'Bastidor com o poema Nada te perturbe, entre outros bastidores na parede' },
+  { id: 'pa-bastidor', nome: 'Porta-alianças, bastidor de 20 cm · Rubens e Lenita', cat: 'Casamento', preco: 'R$ 480', img: 'img/peca-01.jpg', alt: 'Porta-alianças Rubens e Lenita, buquê bordado e a data 09.05.2026' },
+  { id: 'pa-maysa', nome: 'Porta-alianças, bastidor de 20 cm · Maysa e Jhonatan', cat: 'Casamento', preco: 'R$ 480', img: 'img/bastidor-maysa-jhonatan.jpg', alt: 'Porta-alianças Maysa e Jhonatan, ramos bordados e laço para as alianças' },
+  { id: 'pa-oval', nome: 'Porta-alianças, oval vintage', cat: 'Casamento', preco: 'R$ 520', img: null, alt: '' },
+  { id: 'retrato', nome: 'Retrato e árvore genealógica', cat: 'Decoração', preco: 'Sob orçamento', img: null, alt: '' },
+  { id: 'aula', nome: 'Aula avulsa de bordado', cat: 'Aulas', preco: 'R$ 180', img: 'img/aula-02.jpg', alt: 'Turma bordando ao redor da mesa, cada pessoa com seu bastidor' },
+  { id: 'clube', nome: 'Clube Offline, mensal', cat: 'Aulas', preco: 'R$ 320', img: 'img/turma-aula.jpg', alt: 'Turma da aula de bordado mostrando os bastidores prontos' },
+];
+export const categorias = ['Tudo', 'Maternidade', 'Casamento', 'Decoração', 'Aulas'];
