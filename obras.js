@@ -19,7 +19,7 @@ export const obras = [
   { id: 'frase', nome: 'Frase em bastidor · coroa de flores', cat: 'Decoração', preco: 'R$ 420', img: 'img/peca-06.jpg', alt: 'Bastidor com frase bordada dentro de coroa de flores azuis' },
   { id: 'frase-2', nome: 'Frase em bastidor · Nada te perturbe', cat: 'Decoração', preco: 'R$ 420', img: 'img/peca-08.jpg', alt: 'Bastidor com o poema Nada te perturbe, entre outros bastidores na parede' },
   { id: 'pa-bastidor', nome: 'Porta-alianças, bastidor de 20 cm · Rubens e Lenita', cat: 'Casamento', preco: 'R$ 480', img: 'img/peca-01.jpg', alt: 'Porta-alianças Rubens e Lenita, buquê bordado e a data 09.05.2026' },
-  { id: 'pa-maysa', nome: 'Porta-alianças, bastidor de 20 cm · Maysa e Jhonatan', cat: 'Casamento', preco: 'R$ 480', img: 'img/bastidor-maysa-jhonatan.jpg', alt: 'Porta-alianças Maysa e Jhonatan, ramos bordados e laço para as alianças' },
+  { id: 'pa-maysa', nome: 'Porta-alianças, bastidor de 20 cm · Maysa e Jhonatas', cat: 'Casamento', preco: 'R$ 480', img: 'img/bastidor-maysa-jhonatan.jpg', alt: 'Porta-alianças Maysa e Jhonatas, ramos bordados e laço para as alianças' },
   { id: 'pa-oval', nome: 'Porta-alianças, oval vintage', cat: 'Casamento', preco: 'R$ 520', img: null, alt: '' },
   { id: 'retrato', nome: 'Retrato e árvore genealógica', cat: 'Decoração', preco: 'Sob orçamento', img: null, alt: '' },
   { id: 'aula', nome: 'Aula avulsa de bordado', cat: 'Aulas', preco: 'R$ 180', img: 'img/aula-02.jpg', alt: 'Turma bordando ao redor da mesa, cada pessoa com seu bastidor' },
