@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://fabricaberger-droid.github.io/pam-berger-fable/sitemap.xml
+Sitemap: https://pambergeratelie.com.br/sitemap.xml
