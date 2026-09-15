@@ -114,6 +114,21 @@
     return false;
   };
 
+  // delegacao no documento: o runtime do Design recria o rodape e apaga
+  // qualquer onclick, entao o botao e reconhecido pelo texto (que sobrevive).
+  function ehBotaoPrefs(el){
+    if(!el || el.nodeType!==1) return false;
+    if(el.getAttribute && el.getAttribute('data-pb-cookies')) return true;
+    var t=(el.textContent||'').trim().toLowerCase()
+          .normalize('NFD').replace(/[\u0300-\u036f]/g,'');
+    return el.tagName==='BUTTON' && t.indexOf('preferencias de cookies')===0;
+  }
+  document.addEventListener('click', function(ev){
+    for(var el=ev.target; el && el!==document; el=el.parentNode){
+      if(ehBotaoPrefs(el)){ window.pbPreferencias(ev); return; }
+    }
+  }, true);
+
   var escolha=lido();
   if(escolha==='sim'){ ligarMedicao(); return; }
   if(escolha==='nao'){ return; }
@@ -235,7 +250,7 @@ img{display:block}
 <div style="display:flex;flex-direction:column;gap:6px"><div style="font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#6b6157;margin-bottom:6px">Ateliê</div><div>Rua Alberto Werner, 13<br>Centro, Itajaí, Santa Catarina</div><div style="color:#6b6157">Encomendas com hora marcada</div></div>
 </div>
 </div>
-<div style="display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;padding-top:24px;border-top:1px solid #e6e0d4;font-size:12px;color:#6b6157"><span>© Pam Berger. Peças autorais protegidas por direito autoral. · <a href="privacidade.html" style="color:inherit;text-decoration:underline;text-underline-offset:2px">Privacidade</a> · <button type="button" onclick="return pbPreferencias(event)" style="background:none;border:0;padding:0;font:inherit;color:inherit;text-decoration:underline;text-underline-offset:2px;cursor:pointer">Preferências de cookies</button></span><span>feito à mão · feito com tempo · feito com intenção</span></div>
+<div style="display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;padding-top:24px;border-top:1px solid #e6e0d4;font-size:12px;color:#6b6157"><span>© Pam Berger. Peças autorais protegidas por direito autoral. · <a href="privacidade.html" style="color:inherit;text-decoration:underline;text-underline-offset:2px">Privacidade</a> · <button type="button" data-pb-cookies="1" style="background:none;border:0;padding:0;font:inherit;color:inherit;text-decoration:underline;text-underline-offset:2px;cursor:pointer">Preferências de cookies</button></span><span>feito à mão · feito com tempo · feito com intenção</span></div>
 </footer>
 
 </div>
