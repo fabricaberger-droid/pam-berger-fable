@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
+<link rel="stylesheet" href="fontes.css">
+<link rel="preload" as="font" type="font/woff2" crossorigin href="fontes/figtree-latin.woff2">
+<link rel="preload" as="font" type="font/woff2" crossorigin href="fontes/libre-caslon-text-400-normal-latin.woff2">
 <title>Pam Berger · Arte têxtil — bordados manuais, Itajaí</title>
 <meta name="description" content="Bordados personalizados feitos à mão, com carinho em cada detalhe. Peças autorais para maternidade, casamento e decoração afetiva. Ateliê em Itajaí, Santa Catarina.">
 <link rel="canonical" href="https://fabricaberger-droid.github.io/pam-berger-fable/">
@@ -26,8 +29,9 @@
 
 <script>/* medicao-pam */
 (function(){
-  var GA='G-VL1T5SZH80', PX='1689328255631193', CHAVE='pb-consentimento';
+  var GA='G-VL1T5SZH80', PX='1689328255631193', CHAVE='pb-consentimento', ID='pb-aviso-cookies';
   function ligarMedicao(){
+    if(window.__pbMedicaoLigada) return; window.__pbMedicaoLigada=true;
     var s=document.createElement('script');
     s.async=true; s.src='https://www.googletagmanager.com/gtag/js?id='+GA;
     document.head.appendChild(s);
@@ -42,12 +46,26 @@
     fbq('init', PX); fbq('track','PageView');
   }
   function guardar(v){ try{ localStorage.setItem(CHAVE, v); }catch(e){} }
-  var escolha=null; try{ escolha=localStorage.getItem(CHAVE); }catch(e){}
-  if(escolha==='sim'){ ligarMedicao(); return; }
-  if(escolha==='nao'){ return; }
+  function lido(){ try{ return localStorage.getItem(CHAVE); }catch(e){ return null; } }
+  // LGPD: retirar o consentimento tem de ser tao facil quanto da-lo. Apagar a
+  // escolha nao basta -- os cookies que o Google e a Meta ja gravaram continuam
+  // no navegador. Por isso apaga um a um e recarrega, para os scripts sairem.
+  function limparCookies(){
+    var partes=location.hostname.split('.'), dominios=[''];
+    for(var i=0;i<partes.length-1;i++) dominios.push('; domain=.'+partes.slice(i).join('.'));
+    document.cookie.split(';').forEach(function(c){
+      var nome=c.split('=')[0].trim();
+      if(!/^(_ga|_gid|_gat|_fbp|_fbc)/.test(nome)) return;
+      dominios.forEach(function(d){
+        document.cookie=nome+'=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/'+d;
+      });
+    });
+  }
 
   function mostrarAviso(){
+    if(document.getElementById(ID)) return;
     var c=document.createElement('div');
+    c.id=ID;
     c.setAttribute('role','region');
     c.setAttribute('aria-label','Aviso de cookies');
     c.style.cssText='position:fixed;left:0;right:0;bottom:0;z-index:9999;'
@@ -57,8 +75,9 @@
       +'display:flex;flex-wrap:wrap;align-items:center;gap:12px 24px;'
       +"font-family:Figtree,'Segoe UI',system-ui,sans-serif;color:#3a332c";
     var p=document.createElement('p');
-    p.textContent='Este site usa cookies para entender como as pessoas chegam at\u00e9 aqui. '
-      +'Voc\u00ea pode aceitar ou seguir sem eles.';
+    p.innerHTML='Este site usa cookies para entender como as pessoas chegam até aqui. '
+      +'Você pode aceitar ou seguir sem eles. '
+      +'<a href="privacidade.html" style="color:inherit">Como cuidamos dos seus dados</a>.';
     p.style.cssText='margin:0;flex:1 1 280px;min-width:0;font-size:14px;line-height:1.55;color:#6b6157';
     var caixa=document.createElement('div');
     caixa.style.cssText='display:flex;gap:10px;flex-wrap:wrap';
@@ -71,13 +90,33 @@
         +(principal?'background:#3a332c;color:#f6f3ec':'background:none;color:#3a332c');
       return b;
     }
+    var jaMedia = window.__pbMedicaoLigada;
     var sim=botao('Aceitar', true), nao=botao('Seguir sem', false);
     sim.addEventListener('click', function(){ guardar('sim'); c.remove(); ligarMedicao(); });
-    nao.addEventListener('click', function(){ guardar('nao'); c.remove(); });
+    nao.addEventListener('click', function(){
+      guardar('nao'); c.remove();
+      // se a medicao ja estava rodando nesta visita, so recarregando ela para
+      if(jaMedia){ limparCookies(); location.reload(); }
+    });
     caixa.appendChild(sim); caixa.appendChild(nao);
     c.appendChild(p); c.appendChild(caixa);
     document.body.appendChild(c);
+    sim.focus();
   }
+
+  // e o que o link "Preferências de cookies" do rodape chama
+  window.pbPreferencias=function(e){
+    if(e && e.preventDefault) e.preventDefault();
+    try{ localStorage.removeItem(CHAVE); }catch(err){}
+    if(document.readyState==='loading')
+      document.addEventListener('DOMContentLoaded', mostrarAviso);
+    else mostrarAviso();
+    return false;
+  };
+
+  var escolha=lido();
+  if(escolha==='sim'){ ligarMedicao(); return; }
+  if(escolha==='nao'){ return; }
   if(document.readyState==='loading')
     document.addEventListener('DOMContentLoaded', mostrarAviso);
   else mostrarAviso();
@@ -86,13 +125,11 @@
 
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script src="./support.js"></script>
+<script src="./support.js?v=b26fe2a6"></script>
 </head>
 <body>
 <x-dc>
 <helmet>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&family=Figtree:wght@400;500&display=swap" rel="stylesheet">
 <style>
 html{scroll-behavior:smooth}
 body{margin:0;background:#f6f3ec;color:#3a332c;font-family:Figtree,Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
@@ -135,7 +172,7 @@ img{display:block}
 </div>
 </div>
 </div>
-<img src="img/ambiente-10.jpg" alt="Quarto de bebê com berço de madeira; na parede quadriculada, o quadro da letra D, um balão e um cordeirinho bordados" style="width:100%;aspect-ratio:4/5;object-fit:cover;max-height:min(80vh,720px)">
+<img src="img/ambiente-10.jpg" alt="Quarto de bebê com berço de madeira; na parede quadriculada, o quadro da letra D, um balão e um cordeirinho bordados" style="width:100%;aspect-ratio:4/5;object-fit:cover;max-height:min(80vh,720px)" fetchpriority="high" decoding="async">
 </section>
 
 <section id="obras" data-screen-label="obras" style="display:flex;flex-direction:column;gap:40px;padding:clamp(72px,9vw,128px) clamp(20px,5vw,64px) 0">
@@ -145,18 +182,18 @@ img{display:block}
 </div>
 <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,520px),1fr));gap:20px">
 <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px">
-<a href="acervo.html" style="display:flex;flex-direction:column;gap:12px"><img src="img/joao-porta-maternidade.jpg" alt="Porta-maternidade João, ursinho em lã e moldura de madeira" style="width:100%;aspect-ratio:3/4;object-fit:cover"><span style="display:flex;flex-direction:column;gap:2px;font-size:14px;line-height:1.5"><span>Porta-maternidade, moldura 20×20 a 30×30</span><sc-if value="{{ showPrices }}" hint-placeholder-val="{{ true }}"><span style="color:#6b6157">R$ 600 a R$ 680</span></sc-if></span></a>
-<a href="acervo.html" style="display:flex;flex-direction:column;gap:12px"><img src="img/peca-11.jpg" alt="Jardim em acrílico, bastidor com o nome Laura entre flores bordadas" style="width:100%;aspect-ratio:3/4;object-fit:cover"><span style="display:flex;flex-direction:column;gap:2px;font-size:14px;line-height:1.5"><span>Jardim em acrílico</span><sc-if value="{{ showPrices }}" hint-placeholder-val="{{ true }}"><span style="color:#6b6157">R$ 780</span></sc-if></span></a>
+<a href="acervo.html" style="display:flex;flex-direction:column;gap:12px"><img src="img/joao-porta-maternidade.jpg" alt="Porta-maternidade João, ursinho em lã e moldura de madeira" style="width:100%;aspect-ratio:3/4;object-fit:cover" loading="lazy" decoding="async"><span style="display:flex;flex-direction:column;gap:2px;font-size:14px;line-height:1.5"><span>Porta-maternidade, moldura 20×20 a 30×30</span><sc-if value="{{ showPrices }}" hint-placeholder-val="{{ true }}"><span style="color:#6b6157">R$ 600 a R$ 680</span></sc-if></span></a>
+<a href="acervo.html" style="display:flex;flex-direction:column;gap:12px"><img src="img/peca-11.jpg" alt="Jardim em acrílico, bastidor com o nome Laura entre flores bordadas" style="width:100%;aspect-ratio:3/4;object-fit:cover" loading="lazy" decoding="async"><span style="display:flex;flex-direction:column;gap:2px;font-size:14px;line-height:1.5"><span>Jardim em acrílico</span><sc-if value="{{ showPrices }}" hint-placeholder-val="{{ true }}"><span style="color:#6b6157">R$ 780</span></sc-if></span></a>
 </div>
 <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px">
-<a href="acervo.html" style="display:flex;flex-direction:column;gap:12px"><img src="img/peca-10.jpg" alt="Trio vintage tenista: moldura com a letra J e dois bastidores" style="width:100%;aspect-ratio:3/4;object-fit:cover"><span style="display:flex;flex-direction:column;gap:2px;font-size:14px;line-height:1.5"><span>Trio vintage tenista</span><sc-if value="{{ showPrices }}" hint-placeholder-val="{{ true }}"><span style="color:#6b6157">R$ 850</span></sc-if></span></a>
-<a href="acervo.html" style="display:flex;flex-direction:column;gap:12px"><img src="img/peca-01.jpg" alt="Porta-alianças em bastidor: Rubens e Lenita, buquê bordado e a data 09.05.2026" style="width:100%;aspect-ratio:3/4;object-fit:cover"><span style="display:flex;flex-direction:column;gap:2px;font-size:14px;line-height:1.5"><span>Porta-alianças, bastidor de 20 cm</span><sc-if value="{{ showPrices }}" hint-placeholder-val="{{ true }}"><span style="color:#6b6157">R$ 480</span></sc-if></span></a>
+<a href="acervo.html" style="display:flex;flex-direction:column;gap:12px"><img src="img/peca-10.jpg" alt="Trio vintage tenista: moldura com a letra J e dois bastidores" style="width:100%;aspect-ratio:3/4;object-fit:cover" loading="lazy" decoding="async"><span style="display:flex;flex-direction:column;gap:2px;font-size:14px;line-height:1.5"><span>Trio vintage tenista</span><sc-if value="{{ showPrices }}" hint-placeholder-val="{{ true }}"><span style="color:#6b6157">R$ 850</span></sc-if></span></a>
+<a href="acervo.html" style="display:flex;flex-direction:column;gap:12px"><img src="img/peca-01.jpg" alt="Porta-alianças em bastidor: Rubens e Lenita, buquê bordado e a data 09.05.2026" style="width:100%;aspect-ratio:3/4;object-fit:cover" loading="lazy" decoding="async"><span style="display:flex;flex-direction:column;gap:2px;font-size:14px;line-height:1.5"><span>Porta-alianças, bastidor de 20 cm</span><sc-if value="{{ showPrices }}" hint-placeholder-val="{{ true }}"><span style="color:#6b6157">R$ 480</span></sc-if></span></a>
 </div>
 </div>
 </section>
 
 <section id="veu" data-screen-label="veu" style="display:flex;flex-direction:column;gap:40px;padding:clamp(72px,9vw,128px) 0 0">
-<img src="img/veu-noiva-08.jpg" alt="Padrinhos segurando a cauda do véu bordado à mão, no ensaio do casamento" style="width:100%;aspect-ratio:2/1;object-fit:cover;object-position:center 40%">
+<img src="img/veu-noiva-08.jpg" alt="Padrinhos segurando a cauda do véu bordado à mão, no ensaio do casamento" style="width:100%;aspect-ratio:2/1;object-fit:cover;object-position:center 40%" loading="lazy" decoding="async">
 <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,440px),1fr));gap:40px clamp(24px,4vw,64px);padding:0 clamp(20px,5vw,64px)">
 <div style="display:flex;flex-direction:column;justify-content:space-between;gap:40px">
 <div style="display:flex;flex-direction:column;gap:16px"><div style="font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#6b6157;padding-bottom:12px;border-bottom:1px dashed #c9944a;width:max-content">Véu de noiva</div><h2 style="margin:0;font-family:'Libre Caslon Text',Georgia,serif;font-weight:400;font-size:clamp(30px,3.6vw,48px);line-height:1.08;max-width:14ch;text-wrap:pretty">Véu de noiva bordado à mão</h2></div>
@@ -167,18 +204,18 @@ img{display:block}
 </div>
 </div>
 <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px">
-<img src="img/veu-noiva-04.jpg" alt="Noiva sob o véu, com os bordados coloridos em primeiro plano" style="width:100%;aspect-ratio:3/4;object-fit:cover">
-<img src="img/veu-noiva-07.jpg" alt="Casal abraçado sob o véu bordado" style="width:100%;aspect-ratio:3/4;object-fit:cover">
+<img src="img/veu-noiva-04.jpg" alt="Noiva sob o véu, com os bordados coloridos em primeiro plano" style="width:100%;aspect-ratio:3/4;object-fit:cover" loading="lazy" decoding="async">
+<img src="img/veu-noiva-07.jpg" alt="Casal abraçado sob o véu bordado" style="width:100%;aspect-ratio:3/4;object-fit:cover" loading="lazy" decoding="async">
 </div>
 </div>
 </section>
 
 <section data-screen-label="santiago" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,440px),1fr));gap:40px clamp(24px,4vw,64px);padding:clamp(72px,9vw,128px) clamp(20px,5vw,64px) 0">
 <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px">
-<img src="img/santiago-01.jpg" alt="Brasão da família Santiago, monograma SK bordado em verde" style="width:100%;aspect-ratio:3/4;object-fit:cover">
-<img src="img/santiago-03.jpg" alt="Menino com o balão, em moldura, e o balão em lã no bastidor redondo" style="width:100%;aspect-ratio:3/4;object-fit:cover">
-<img src="img/santiago-08.jpg" alt="Detalhe do ponto do monograma SK" style="width:100%;aspect-ratio:3/4;object-fit:cover">
-<img src="img/santiago-06.jpg" alt="As peças da Coleção Santiago reunidas antes da entrega" style="width:100%;aspect-ratio:3/4;object-fit:cover">
+<img src="img/santiago-01.jpg" alt="Brasão da família Santiago, monograma SK bordado em verde" style="width:100%;aspect-ratio:3/4;object-fit:cover" loading="lazy" decoding="async">
+<img src="img/santiago-03.jpg" alt="Menino com o balão, em moldura, e o balão em lã no bastidor redondo" style="width:100%;aspect-ratio:3/4;object-fit:cover" loading="lazy" decoding="async">
+<img src="img/santiago-08.jpg" alt="Detalhe do ponto do monograma SK" style="width:100%;aspect-ratio:3/4;object-fit:cover" loading="lazy" decoding="async">
+<img src="img/santiago-06.jpg" alt="As peças da Coleção Santiago reunidas antes da entrega" style="width:100%;aspect-ratio:3/4;object-fit:cover" loading="lazy" decoding="async">
 </div>
 <div style="display:flex;flex-direction:column;justify-content:space-between;gap:40px">
 <div style="display:flex;flex-direction:column;gap:16px"><div style="font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#6b6157;padding-bottom:12px;border-bottom:1px dashed #c9944a;width:max-content">Uma obra em quatro peças</div><h2 style="margin:0;font-family:'Libre Caslon Text',Georgia,serif;font-weight:400;font-size:clamp(30px,3.6vw,48px);line-height:1.08;max-width:14ch;text-wrap:pretty">Coleção Santiago</h2></div>
@@ -204,12 +241,12 @@ img{display:block}
 </div>
 <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,520px),1fr));gap:20px;padding-top:8px">
 <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px">
-<img src="img/macro-01.jpg" alt="Detalhe do nome Francisco bordado, com nuvens em lã" style="width:100%;aspect-ratio:4/3;object-fit:cover">
-<img src="img/macro-04.jpg" alt="Detalhe do balão em lã sobre linho, no bastidor" style="width:100%;aspect-ratio:4/3;object-fit:cover">
+<img src="img/macro-01.jpg" alt="Detalhe do nome Francisco bordado, com nuvens em lã" style="width:100%;aspect-ratio:4/3;object-fit:cover" loading="lazy" decoding="async">
+<img src="img/macro-04.jpg" alt="Detalhe do balão em lã sobre linho, no bastidor" style="width:100%;aspect-ratio:4/3;object-fit:cover" loading="lazy" decoding="async">
 </div>
 <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px">
-<img src="img/macro-08.jpg" alt="Relevo do quadriculado em lã verde e cru" style="width:100%;aspect-ratio:4/3;object-fit:cover">
-<img src="img/macro-10.jpg" alt="Ponto cheio do monograma SK visto de perto" style="width:100%;aspect-ratio:4/3;object-fit:cover">
+<img src="img/macro-08.jpg" alt="Relevo do quadriculado em lã verde e cru" style="width:100%;aspect-ratio:4/3;object-fit:cover" loading="lazy" decoding="async">
+<img src="img/macro-10.jpg" alt="Ponto cheio do monograma SK visto de perto" style="width:100%;aspect-ratio:4/3;object-fit:cover" loading="lazy" decoding="async">
 </div>
 </div>
 <div style="display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:#6b6157"><span>De perto se vê a mão</span><span>feito à mão · feito com tempo · feito com intenção</span></div>
@@ -222,19 +259,19 @@ img{display:block}
 </div>
 <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,520px),1fr));gap:20px">
 <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px">
-<img src="img/ambiente-01.jpg" alt="Pamela pendurando o quadro do cordeirinho, ao lado do quadriculado com a letra D e do balão" style="width:100%;aspect-ratio:3/4;object-fit:cover">
-<img src="img/ambiente-07.jpg" alt="Quarto com berço azul e três quadros bordados na parede" style="width:100%;aspect-ratio:3/4;object-fit:cover">
+<img src="img/ambiente-01.jpg" alt="Pamela pendurando o quadro do cordeirinho, ao lado do quadriculado com a letra D e do balão" style="width:100%;aspect-ratio:3/4;object-fit:cover" loading="lazy" decoding="async">
+<img src="img/ambiente-07.jpg" alt="Quarto com berço azul e três quadros bordados na parede" style="width:100%;aspect-ratio:3/4;object-fit:cover" loading="lazy" decoding="async">
 </div>
 <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px">
-<img src="img/ambiente-08.jpg" alt="Quarto azul com três quadros: dois ursinhos e a letra A" style="width:100%;aspect-ratio:3/4;object-fit:cover">
-<img src="img/ambiente-10.jpg" alt="Quarto com berço de madeira e os três quadros na parede quadriculada" style="width:100%;aspect-ratio:3/4;object-fit:cover">
+<img src="img/ambiente-08.jpg" alt="Quarto azul com três quadros: dois ursinhos e a letra A" style="width:100%;aspect-ratio:3/4;object-fit:cover" loading="lazy" decoding="async">
+<img src="img/ambiente-10.jpg" alt="Quarto com berço de madeira e os três quadros na parede quadriculada" style="width:100%;aspect-ratio:3/4;object-fit:cover" loading="lazy" decoding="async">
 </div>
 </div>
 <blockquote style="margin:0;padding:clamp(24px,4vw,56px) 0 0;font-family:'Libre Caslon Text',Georgia,serif;font-style:italic;font-size:clamp(24px,3vw,36px);line-height:1.25;max-width:30ch;text-wrap:pretty">“É como se eles finalmente encontrassem o lar para o qual foram criados.”</blockquote>
 </section>
 
 <section id="aulas" data-screen-label="aulas" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,440px),1fr));gap:40px clamp(24px,4vw,64px);padding:clamp(72px,9vw,128px) clamp(20px,5vw,64px) 0;align-items:stretch">
-<img src="img/turma-aula.jpg" alt="Turma da aula de bordado, cada pessoa com seu bastidor" style="width:100%;height:100%;min-height:360px;aspect-ratio:3/2;object-fit:cover">
+<img src="img/turma-aula.jpg" alt="Turma da aula de bordado, cada pessoa com seu bastidor" style="width:100%;height:100%;min-height:360px;aspect-ratio:3/2;object-fit:cover" loading="lazy" decoding="async">
 <div style="display:flex;flex-direction:column;justify-content:space-between;gap:40px">
 <div style="display:flex;flex-direction:column;gap:16px"><div style="font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#6b6157;padding-bottom:12px;border-bottom:1px dashed #c9944a;width:max-content">Aulas</div><h2 style="margin:0;font-family:'Libre Caslon Text',Georgia,serif;font-weight:400;font-size:clamp(28px,3.2vw,40px);line-height:1.12;max-width:16ch;text-wrap:pretty">Aprender o ponto, sem pressa.</h2></div>
 <div style="display:flex;flex-direction:column;gap:24px;max-width:46ch">
@@ -257,7 +294,7 @@ img{display:block}
 <a href="a-artista.html" style="font-size:13px;letter-spacing:.06em;border-bottom:1px solid #3a332c;padding-bottom:3px;width:max-content">Conhecer a artista</a>
 </div>
 </div>
-<img src="img/retrato-pamela.jpg" alt="Pamela Berger no ateliê, examinando um bordado" style="width:100%;aspect-ratio:4/5;object-fit:cover;max-height:min(80vh,720px)">
+<img src="img/retrato-pamela.jpg" alt="Pamela Berger no ateliê, examinando um bordado" style="width:100%;aspect-ratio:4/5;object-fit:cover;max-height:min(80vh,720px)" loading="lazy" decoding="async">
 </section>
 
 <section data-screen-label="chamada" style="margin-top:clamp(72px,9vw,128px);background:#f7e1d7;padding:clamp(64px,8vw,112px) clamp(20px,5vw,64px);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,440px),1fr));gap:40px clamp(24px,4vw,64px);align-items:end">
@@ -277,7 +314,7 @@ img{display:block}
 <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,440px),1fr));gap:40px clamp(24px,4vw,64px)">
 <div style="display:grid;grid-template-columns:1fr 1fr;gap:40px clamp(24px,4vw,64px)">
 <div style="display:flex;flex-direction:column;gap:16px">
-<img src="img/logo-passarinho.png" alt="Pam Berger" style="width:64px;height:auto">
+<img src="img/logo-passarinho.png" alt="Pam Berger" style="width:64px;height:auto" loading="lazy" decoding="async">
 <div><span style="font-family:'Libre Caslon Text',Georgia,serif;font-size:18px">Pam Berger</span><br><span style="color:#6b6157">Arte têxtil · Itajaí, SC</span></div>
 </div>
 <div style="display:flex;flex-direction:column;gap:6px"><div style="font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#6b6157;margin-bottom:6px">Navegar</div><a href="#obras">Obras</a><a href="#veu">Véu de noiva</a><a href="#ponto">O ponto</a><a href="#aulas">Aulas</a><a href="a-artista.html">A artista</a><a href="acervo.html">Acervo</a><a href="encomendar.html">Encomendar</a></div>
@@ -287,7 +324,7 @@ img{display:block}
 <div style="display:flex;flex-direction:column;gap:6px"><div style="font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#6b6157;margin-bottom:6px">Ateliê</div><div>Rua Alberto Werner, 13<br>Centro, Itajaí, Santa Catarina</div><div style="color:#6b6157">Encomendas com hora marcada</div></div>
 </div>
 </div>
-<div style="display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;padding-top:24px;border-top:1px solid #e6e0d4;font-size:12px;color:#6b6157"><span>© Pam Berger. Peças autorais protegidas por direito autoral.</span><span>feito à mão · feito com tempo · feito com intenção</span></div>
+<div style="display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;padding-top:24px;border-top:1px solid #e6e0d4;font-size:12px;color:#6b6157"><span>© Pam Berger. Peças autorais protegidas por direito autoral. · <a href="privacidade.html" style="color:inherit;text-decoration:underline;text-underline-offset:2px">Privacidade</a> · <button type="button" onclick="return pbPreferencias(event)" style="background:none;border:0;padding:0;font:inherit;color:inherit;text-decoration:underline;text-underline-offset:2px;cursor:pointer">Preferências de cookies</button></span><span>feito à mão · feito com tempo · feito com intenção</span></div>
 </footer>
 
 </div>

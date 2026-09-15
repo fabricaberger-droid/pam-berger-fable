@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
+<link rel="stylesheet" href="fontes.css">
+<link rel="preload" as="font" type="font/woff2" crossorigin href="fontes/figtree-latin.woff2">
+<link rel="preload" as="font" type="font/woff2" crossorigin href="fontes/libre-caslon-text-400-normal-latin.woff2">
 <title>Acervo · Pam Berger · Arte têxtil</title>
 <meta name="description" content="As obras do ateliê, com valores: maternidade, casamento, decoração e aulas de bordado.">
 <link rel="canonical" href="https://fabricaberger-droid.github.io/pam-berger-fable/acervo.html">
@@ -26,8 +29,9 @@
 
 <script>/* medicao-pam */
 (function(){
-  var GA='G-VL1T5SZH80', PX='1689328255631193', CHAVE='pb-consentimento';
+  var GA='G-VL1T5SZH80', PX='1689328255631193', CHAVE='pb-consentimento', ID='pb-aviso-cookies';
   function ligarMedicao(){
+    if(window.__pbMedicaoLigada) return; window.__pbMedicaoLigada=true;
     var s=document.createElement('script');
     s.async=true; s.src='https://www.googletagmanager.com/gtag/js?id='+GA;
     document.head.appendChild(s);
@@ -42,12 +46,26 @@
     fbq('init', PX); fbq('track','PageView');
   }
   function guardar(v){ try{ localStorage.setItem(CHAVE, v); }catch(e){} }
-  var escolha=null; try{ escolha=localStorage.getItem(CHAVE); }catch(e){}
-  if(escolha==='sim'){ ligarMedicao(); return; }
-  if(escolha==='nao'){ return; }
+  function lido(){ try{ return localStorage.getItem(CHAVE); }catch(e){ return null; } }
+  // LGPD: retirar o consentimento tem de ser tao facil quanto da-lo. Apagar a
+  // escolha nao basta -- os cookies que o Google e a Meta ja gravaram continuam
+  // no navegador. Por isso apaga um a um e recarrega, para os scripts sairem.
+  function limparCookies(){
+    var partes=location.hostname.split('.'), dominios=[''];
+    for(var i=0;i<partes.length-1;i++) dominios.push('; domain=.'+partes.slice(i).join('.'));
+    document.cookie.split(';').forEach(function(c){
+      var nome=c.split('=')[0].trim();
+      if(!/^(_ga|_gid|_gat|_fbp|_fbc)/.test(nome)) return;
+      dominios.forEach(function(d){
+        document.cookie=nome+'=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/'+d;
+      });
+    });
+  }
 
   function mostrarAviso(){
+    if(document.getElementById(ID)) return;
     var c=document.createElement('div');
+    c.id=ID;
     c.setAttribute('role','region');
     c.setAttribute('aria-label','Aviso de cookies');
     c.style.cssText='position:fixed;left:0;right:0;bottom:0;z-index:9999;'
@@ -57,8 +75,9 @@
       +'display:flex;flex-wrap:wrap;align-items:center;gap:12px 24px;'
       +"font-family:Figtree,'Segoe UI',system-ui,sans-serif;color:#3a332c";
     var p=document.createElement('p');
-    p.textContent='Este site usa cookies para entender como as pessoas chegam at\u00e9 aqui. '
-      +'Voc\u00ea pode aceitar ou seguir sem eles.';
+    p.innerHTML='Este site usa cookies para entender como as pessoas chegam até aqui. '
+      +'Você pode aceitar ou seguir sem eles. '
+      +'<a href="privacidade.html" style="color:inherit">Como cuidamos dos seus dados</a>.';
     p.style.cssText='margin:0;flex:1 1 280px;min-width:0;font-size:14px;line-height:1.55;color:#6b6157';
     var caixa=document.createElement('div');
     caixa.style.cssText='display:flex;gap:10px;flex-wrap:wrap';
@@ -71,13 +90,33 @@
         +(principal?'background:#3a332c;color:#f6f3ec':'background:none;color:#3a332c');
       return b;
     }
+    var jaMedia = window.__pbMedicaoLigada;
     var sim=botao('Aceitar', true), nao=botao('Seguir sem', false);
     sim.addEventListener('click', function(){ guardar('sim'); c.remove(); ligarMedicao(); });
-    nao.addEventListener('click', function(){ guardar('nao'); c.remove(); });
+    nao.addEventListener('click', function(){
+      guardar('nao'); c.remove();
+      // se a medicao ja estava rodando nesta visita, so recarregando ela para
+      if(jaMedia){ limparCookies(); location.reload(); }
+    });
     caixa.appendChild(sim); caixa.appendChild(nao);
     c.appendChild(p); c.appendChild(caixa);
     document.body.appendChild(c);
+    sim.focus();
   }
+
+  // e o que o link "Preferências de cookies" do rodape chama
+  window.pbPreferencias=function(e){
+    if(e && e.preventDefault) e.preventDefault();
+    try{ localStorage.removeItem(CHAVE); }catch(err){}
+    if(document.readyState==='loading')
+      document.addEventListener('DOMContentLoaded', mostrarAviso);
+    else mostrarAviso();
+    return false;
+  };
+
+  var escolha=lido();
+  if(escolha==='sim'){ ligarMedicao(); return; }
+  if(escolha==='nao'){ return; }
   if(document.readyState==='loading')
     document.addEventListener('DOMContentLoaded', mostrarAviso);
   else mostrarAviso();
@@ -86,13 +125,11 @@
 
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script src="./support.js"></script>
+<script src="./support.js?v=b26fe2a6"></script>
 </head>
 <body>
 <x-dc>
 <helmet>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&family=Figtree:wght@400;500&display=swap" rel="stylesheet">
 <style>
 body{margin:0;background:#f6f3ec;color:#3a332c;font-family:Figtree,Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
 a{color:#3a332c;text-decoration:none}a:hover{color:#c9944a}
@@ -136,7 +173,7 @@ img{display:block}
 <section data-screen-label="grade" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(min(calc(50% - 10px),280px),1fr));gap:40px 20px;padding:32px clamp(20px,5vw,64px) 0">
 <sc-for list="{{ itens }}" as="o" hint-placeholder-count="8">
 <a href="{{ o.href }}" style="display:flex;flex-direction:column;gap:12px">
-<img data-src="{{ o.src }}" ref="{{ o.setSrc }}" alt="{{ o.alt }}" style="width:100%;aspect-ratio:3/4;object-fit:cover">
+<img data-src="{{ o.src }}" ref="{{ o.setSrc }}" alt="{{ o.alt }}" style="width:100%;aspect-ratio:3/4;object-fit:cover" loading="lazy" decoding="async">
 <span style="display:flex;flex-direction:column;gap:4px;font-size:14px;line-height:1.5"><span>{{ o.nome }}</span><span style="font-size:13px;line-height:1.5;color:#6b6157">{{ o.nota }}</span><span>{{ o.preco }}</span></span>
 </a>
 </sc-for>
@@ -177,7 +214,7 @@ img{display:block}
 <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,440px),1fr));gap:40px clamp(24px,4vw,64px)">
 <div style="display:grid;grid-template-columns:1fr 1fr;gap:40px clamp(24px,4vw,64px)">
 <div style="display:flex;flex-direction:column;gap:16px">
-<img src="img/logo-passarinho.png" alt="Pam Berger" style="width:64px;height:auto">
+<img src="img/logo-passarinho.png" alt="Pam Berger" style="width:64px;height:auto" loading="lazy" decoding="async">
 <div><span style="font-family:'Libre Caslon Text',Georgia,serif;font-size:18px">Pam Berger</span><br><span style="color:#6b6157">Arte têxtil · Itajaí, SC</span></div>
 </div>
 <div style="display:flex;flex-direction:column;gap:6px"><div style="font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#6b6157;margin-bottom:6px">Navegar</div><a href="index.html#obras">Obras</a><a href="index.html#veu">Véu de noiva</a><a href="index.html#ponto">O ponto</a><a href="index.html#aulas">Aulas</a><a href="a-artista.html">A artista</a><a href="acervo.html">Acervo</a><a href="encomendar.html">Encomendar</a></div>
@@ -187,7 +224,7 @@ img{display:block}
 <div style="display:flex;flex-direction:column;gap:6px"><div style="font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#6b6157;margin-bottom:6px">Ateliê</div><div>Rua Alberto Werner, 13<br>Centro, Itajaí, Santa Catarina</div><div style="color:#6b6157">Encomendas com hora marcada</div></div>
 </div>
 </div>
-<div style="display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;padding-top:24px;border-top:1px solid #e6e0d4;font-size:12px;color:#6b6157"><span>© Pam Berger. Peças autorais protegidas por direito autoral.</span><span>feito à mão · feito com tempo · feito com intenção</span></div>
+<div style="display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;padding-top:24px;border-top:1px solid #e6e0d4;font-size:12px;color:#6b6157"><span>© Pam Berger. Peças autorais protegidas por direito autoral. · <a href="privacidade.html" style="color:inherit;text-decoration:underline;text-underline-offset:2px">Privacidade</a> · <button type="button" onclick="return pbPreferencias(event)" style="background:none;border:0;padding:0;font:inherit;color:inherit;text-decoration:underline;text-underline-offset:2px;cursor:pointer">Preferências de cookies</button></span><span>feito à mão · feito com tempo · feito com intenção</span></div>
 </footer>
 
 </div>

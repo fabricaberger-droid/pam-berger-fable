@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<link rel="stylesheet" href="fontes.css">
+<link rel="preload" as="font" type="font/woff2" crossorigin href="fontes/figtree-latin.woff2">
+<link rel="preload" as="font" type="font/woff2" crossorigin href="fontes/libre-caslon-text-400-normal-latin.woff2">
+<title>Privacidade · Pam Berger · Arte têxtil</title>
+<meta name="description" content="O que acontece com os seus dados quando você visita este site. Em português claro, sem letra miúda.">
+<link rel="canonical" href="https://fabricaberger-droid.github.io/pam-berger-fable/privacidade.html">
+<link rel="icon" href="img/logo-passarinho.png">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="theme-color" content="#f6f3ec">
+<meta property="og:title" content="Privacidade · Pam Berger · Arte têxtil">
+<meta property="og:description" content="Bordados personalizados feitos à mão, com carinho em cada detalhe. Peças autorais para maternidade, casamento e decoração afetiva. Ateliê em Itajaí, Santa Catarina.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://fabricaberger-droid.github.io/pam-berger-fable/privacidade.html">
+<meta property="og:image" content="https://fabricaberger-droid.github.io/pam-berger-fable/og/index.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:site_name" content="Pam Berger · Arte têxtil">
+<meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "ProfessionalService", "name": "Pam Berger · Arte têxtil", "description": "Bordados personalizados feitos à mão, com carinho em cada detalhe. Peças autorais para maternidade, casamento e decoração afetiva. Ateliê em Itajaí, Santa Catarina.", "url": "https://fabricaberger-droid.github.io/pam-berger-fable/", "image": "https://fabricaberger-droid.github.io/pam-berger-fable/og/index.jpg", "telephone": "+5547996409666", "email": "pambergeratelie@gmail.com", "address": {"@type": "PostalAddress", "streetAddress": "Rua Alberto Werner, 13", "addressLocality": "Itajaí", "addressRegion": "SC", "addressCountry": "BR"}, "sameAs": ["https://www.instagram.com/pam_berger_/"], "founder": {"@type": "Person", "name": "Pamela Berger", "jobTitle": "Artista têxtil"}, "priceRange": "R$ 180 - R$ 1.500"}</script>
+<style>
+/* correcoes de publicacao - auditoria de 13/09/2026 */
+@media (max-width:480px){ a{max-width:100%;box-sizing:border-box} }
+</style>
+
+<script>/* medicao-pam */
+(function(){
+  var GA='G-VL1T5SZH80', PX='1689328255631193', CHAVE='pb-consentimento', ID='pb-aviso-cookies';
+  function ligarMedicao(){
+    if(window.__pbMedicaoLigada) return; window.__pbMedicaoLigada=true;
+    var s=document.createElement('script');
+    s.async=true; s.src='https://www.googletagmanager.com/gtag/js?id='+GA;
+    document.head.appendChild(s);
+    window.dataLayer=window.dataLayer||[];
+    window.gtag=function(){window.dataLayer.push(arguments)};
+    gtag('js', new Date()); gtag('config', GA);
+    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+    n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+    document,'script','https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', PX); fbq('track','PageView');
+  }
+  function guardar(v){ try{ localStorage.setItem(CHAVE, v); }catch(e){} }
+  function lido(){ try{ return localStorage.getItem(CHAVE); }catch(e){ return null; } }
+  // LGPD: retirar o consentimento tem de ser tao facil quanto da-lo. Apagar a
+  // escolha nao basta -- os cookies que o Google e a Meta ja gravaram continuam
+  // no navegador. Por isso apaga um a um e recarrega, para os scripts sairem.
+  function limparCookies(){
+    var partes=location.hostname.split('.'), dominios=[''];
+    for(var i=0;i<partes.length-1;i++) dominios.push('; domain=.'+partes.slice(i).join('.'));
+    document.cookie.split(';').forEach(function(c){
+      var nome=c.split('=')[0].trim();
+      if(!/^(_ga|_gid|_gat|_fbp|_fbc)/.test(nome)) return;
+      dominios.forEach(function(d){
+        document.cookie=nome+'=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/'+d;
+      });
+    });
+  }
+
+  function mostrarAviso(){
+    if(document.getElementById(ID)) return;
+    var c=document.createElement('div');
+    c.id=ID;
+    c.setAttribute('role','region');
+    c.setAttribute('aria-label','Aviso de cookies');
+    c.style.cssText='position:fixed;left:0;right:0;bottom:0;z-index:9999;'
+      +'background:#fffdfa;border-top:1px solid #e6e0d4;'
+      +'box-shadow:0 -6px 24px rgba(58,51,44,.07);'
+      +'padding:16px clamp(20px,5vw,64px);'
+      +'display:flex;flex-wrap:wrap;align-items:center;gap:12px 24px;'
+      +"font-family:Figtree,'Segoe UI',system-ui,sans-serif;color:#3a332c";
+    var p=document.createElement('p');
+    p.innerHTML='Este site usa cookies para entender como as pessoas chegam até aqui. '
+      +'Você pode aceitar ou seguir sem eles. '
+      +'<a href="privacidade.html" style="color:inherit">Como cuidamos dos seus dados</a>.';
+    p.style.cssText='margin:0;flex:1 1 280px;min-width:0;font-size:14px;line-height:1.55;color:#6b6157';
+    var caixa=document.createElement('div');
+    caixa.style.cssText='display:flex;gap:10px;flex-wrap:wrap';
+    function botao(texto, principal){
+      var b=document.createElement('button');
+      b.type='button'; b.textContent=texto;
+      b.style.cssText='font:inherit;font-size:12px;letter-spacing:.1em;'
+        +'text-transform:uppercase;padding:12px 22px;min-height:44px;cursor:pointer;'
+        +'border:1px solid #3a332c;max-width:100%;box-sizing:border-box;'
+        +(principal?'background:#3a332c;color:#f6f3ec':'background:none;color:#3a332c');
+      return b;
+    }
+    var jaMedia = window.__pbMedicaoLigada;
+    var sim=botao('Aceitar', true), nao=botao('Seguir sem', false);
+    sim.addEventListener('click', function(){ guardar('sim'); c.remove(); ligarMedicao(); });
+    nao.addEventListener('click', function(){
+      guardar('nao'); c.remove();
+      // se a medicao ja estava rodando nesta visita, so recarregando ela para
+      if(jaMedia){ limparCookies(); location.reload(); }
+    });
+    caixa.appendChild(sim); caixa.appendChild(nao);
+    c.appendChild(p); c.appendChild(caixa);
+    document.body.appendChild(c);
+    sim.focus();
+  }
+
+  // e o que o link "Preferências de cookies" do rodape chama
+  window.pbPreferencias=function(e){
+    if(e && e.preventDefault) e.preventDefault();
+    try{ localStorage.removeItem(CHAVE); }catch(err){}
+    if(document.readyState==='loading')
+      document.addEventListener('DOMContentLoaded', mostrarAviso);
+    else mostrarAviso();
+    return false;
+  };
+
+  var escolha=lido();
+  if(escolha==='sim'){ ligarMedicao(); return; }
+  if(escolha==='nao'){ return; }
+  if(document.readyState==='loading')
+    document.addEventListener('DOMContentLoaded', mostrarAviso);
+  else mostrarAviso();
+})();
+</script>
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js?v=b26fe2a6"></script>
+<style>
+html{scroll-behavior:smooth}
+body{margin:0;background:#f6f3ec;color:#3a332c;font-family:Figtree,Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:#3a332c;text-decoration:none}a:hover{color:#c9944a}
+img{display:block}
+</style>
+</head>
+<body><header style="display:flex;align-items:center;justify-content:space-between;gap:24px;padding:20px clamp(20px,5vw,64px);border-bottom:1px solid #e6e0d4"><a href="index.html" style="display:flex;align-items:center;gap:14px">
+<img src="img/logo-passarinho.png" alt="Pam Berger — passarinho dourado" style="width:50px;height:auto">
+<span style="display:flex;flex-direction:column;line-height:1.15"><span style="font-family:'Libre Caslon Text',Georgia,serif;font-size:19px">Pam Berger</span><span style="font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:#6b6157">Arte têxtil</span></span>
+</a><a href="index.html" style="font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#6b6157;text-decoration:none">Voltar ao site</a></header><main style="display:flex;flex-direction:column;gap:clamp(40px,5vw,64px);padding:clamp(32px,4vw,56px) clamp(20px,5vw,64px) clamp(56px,7vw,96px)"><div style="display:flex;flex-direction:column;gap:20px"><div style="font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#6b6157;padding-bottom:12px;border-bottom:1px dashed #c9944a;width:max-content">Privacidade</div><h1 style="margin:0;font-family:'Libre Caslon Text',Georgia,serif;font-weight:400;font-size:clamp(34px,4.4vw,58px);line-height:1.06;letter-spacing:-.015em;max-width:16ch;text-wrap:pretty">O que acontece com os seus dados aqui.</h1><p style="margin:0;font-size:17px;line-height:1.6;max-width:56ch;color:#6b6157">Em português claro, sem letra miúda. Escrito a partir do que este site realmente faz.</p></div><div style="display:flex;flex-direction:column;gap:clamp(32px,4vw,44px)"><section style="display:flex;flex-direction:column;gap:16px;max-width:62ch"><h2 style="margin:0;font-family:'Libre Caslon Text',Georgia,serif;font-weight:400;font-size:clamp(22px,2.4vw,28px);line-height:1.2">Este site não tem formulário</h2><p style="margin:0;font-size:17px;line-height:1.6">Você não digita nome, e-mail, telefone nem qualquer outro dado aqui. Não há cadastro, não há carrinho e não há login. Toda conversa acontece pelo WhatsApp ou por e-mail, quando <strong>você</strong> escolhe começar.</p></section><section style="display:flex;flex-direction:column;gap:16px;max-width:62ch"><h2 style="margin:0;font-family:'Libre Caslon Text',Georgia,serif;font-weight:400;font-size:clamp(22px,2.4vw,28px);line-height:1.2">Cookies e medição</h2><p style="margin:0;font-size:17px;line-height:1.6">Se você aceitar, este site usa duas ferramentas para entender como as pessoas chegam até ele e quais peças despertam mais interesse: o <strong>Google Analytics</strong>, que mostra de forma agregada quantas pessoas visitaram e por quais caminhos, e o <strong>Meta Pixel</strong>, que ajuda a entender o resultado de publicações no Instagram e no Facebook.</p><p style="margin:0;font-size:17px;line-height:1.6"><strong>Nenhuma das duas carrega antes do seu aceite.</strong> Enquanto você não clicar em “Aceitar”, o seu navegador não envia nada ao Google nem à Meta, e nenhum cookie dessas empresas é gravado. Se você clicar em “Seguir sem”, elas nunca são carregadas.</p><p style="margin:0;font-size:17px;line-height:1.6">A sua escolha fica guardada apenas no seu próprio navegador, para o aviso não aparecer de novo a cada visita. Ela não é enviada a lugar nenhum.</p></section><section style="display:flex;flex-direction:column;gap:16px;max-width:62ch"><h2 style="margin:0;font-family:'Libre Caslon Text',Georgia,serif;font-weight:400;font-size:clamp(22px,2.4vw,28px);line-height:1.2">Mudar de ideia a qualquer momento</h2><p style="margin:0;font-size:17px;line-height:1.6">No rodapé de qualquer página há o link <button type="button" onclick="return pbPreferencias(event)" style="background:none;border:0;padding:0;font:inherit;color:inherit;text-decoration:underline;text-underline-offset:2px;cursor:pointer"><strong>Preferências de cookies</strong></button>. Ele traz o aviso de volta e deixa você escolher de novo. Se você tinha aceitado e mudar para “Seguir sem”, os cookies de medição são apagados do seu navegador na hora.</p></section><section style="display:flex;flex-direction:column;gap:16px;max-width:62ch"><h2 style="margin:0;font-family:'Libre Caslon Text',Georgia,serif;font-weight:400;font-size:clamp(22px,2.4vw,28px);line-height:1.2">As letras do site</h2><p style="margin:0;font-size:17px;line-height:1.6">As fontes tipográficas são servidas por este próprio site. O seu navegador não se conecta ao Google para exibir o texto, e nenhum dado seu sai por causa de tipografia.</p></section><section style="display:flex;flex-direction:column;gap:16px;max-width:62ch"><h2 style="margin:0;font-family:'Libre Caslon Text',Georgia,serif;font-weight:400;font-size:clamp(22px,2.4vw,28px);line-height:1.2">Quando você fala com a gente</h2><p style="margin:0;font-size:17px;line-height:1.6">Ao clicar em qualquer botão de WhatsApp, você é levado a uma conversa com o número <strong>(47) 99640-9666</strong>. A partir daí valem as regras de privacidade do WhatsApp, que é da Meta. O mesmo vale para mensagens enviadas ao e-mail <strong>pambergeratelie@gmail.com</strong>.</p><p style="margin:0;font-size:17px;line-height:1.6">O que você compartilhar nessa conversa — seu nome, a história da peça, fotos do ambiente, endereço de entrega — é usado apenas para desenhar, produzir e entregar a sua encomenda. <strong>Não vendemos, não alugamos e não compartilhamos esses dados com terceiros.</strong></p></section><section style="display:flex;flex-direction:column;gap:16px;max-width:62ch"><h2 style="margin:0;font-family:'Libre Caslon Text',Georgia,serif;font-weight:400;font-size:clamp(22px,2.4vw,28px);line-height:1.2">Os seus direitos</h2><p style="margin:0;font-size:17px;line-height:1.6">Pela Lei Geral de Proteção de Dados (LGPD, Lei 13.709/2018), você pode a qualquer momento pedir para saber quais dados seus estão guardados, corrigi-los, pedir que sejam apagados ou retirar o consentimento que deu.</p><p style="margin:0;font-size:17px;line-height:1.6">Para qualquer um desses pedidos, escreva para <strong>pambergeratelie@gmail.com</strong> ou chame no WhatsApp <strong>(47) 99640-9666</strong>.</p></section><section style="display:flex;flex-direction:column;gap:16px;max-width:62ch"><h2 style="margin:0;font-family:'Libre Caslon Text',Georgia,serif;font-weight:400;font-size:clamp(22px,2.4vw,28px);line-height:1.2">Quem é responsável</h2><p style="margin:0;font-size:17px;line-height:1.6"><strong>Pamela Berger</strong><br>Rua Alberto Werner, 13 — Centro, Itajaí, Santa Catarina<br>pambergeratelie@gmail.com · (47) 99640-9666</p></section><p style="margin:0;font-size:17px;line-height:1.6;color:#6b6157;font-size:14px">Última atualização: 15/09/2026.</p></div></main><footer data-screen-label="rodape" style="display:flex;flex-direction:column;gap:40px;padding:56px clamp(20px,5vw,64px) 40px;border-top:1px solid #e6e0d4;font-size:14px;line-height:1.6">
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,440px),1fr));gap:40px clamp(24px,4vw,64px)">
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:40px clamp(24px,4vw,64px)">
+<div style="display:flex;flex-direction:column;gap:16px">
+<img src="img/logo-passarinho.png" alt="Pam Berger" style="width:64px;height:auto" loading="lazy" decoding="async">
+<div><span style="font-family:'Libre Caslon Text',Georgia,serif;font-size:18px">Pam Berger</span><br><span style="color:#6b6157">Arte têxtil · Itajaí, SC</span></div>
+</div>
+<div style="display:flex;flex-direction:column;gap:6px"><div style="font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#6b6157;margin-bottom:6px">Navegar</div><a href="#obras">Obras</a><a href="#veu">Véu de noiva</a><a href="#ponto">O ponto</a><a href="#aulas">Aulas</a><a href="a-artista.html">A artista</a><a href="acervo.html">Acervo</a><a href="encomendar.html">Encomendar</a></div>
+</div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:40px clamp(24px,4vw,64px)">
+<div style="display:flex;flex-direction:column;gap:6px"><div style="font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#6b6157;margin-bottom:6px">Contato</div><a href="https://wa.me/5547996409666?text=Ol%C3%A1%2C%20Pamela!%20Vim%20pelo%20site%20(p%C3%A1gina%20in%C3%ADcio)%20e%20queria%20conversar%20sobre%20uma%20encomenda.">WhatsApp (47) 99640-9666</a><a href="mailto:pambergeratelie@gmail.com">pambergeratelie@gmail.com</a><a href="https://instagram.com/pam_berger_">@pam_berger_</a></div>
+<div style="display:flex;flex-direction:column;gap:6px"><div style="font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#6b6157;margin-bottom:6px">Ateliê</div><div>Rua Alberto Werner, 13<br>Centro, Itajaí, Santa Catarina</div><div style="color:#6b6157">Encomendas com hora marcada</div></div>
+</div>
+</div>
+<div style="display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;padding-top:24px;border-top:1px solid #e6e0d4;font-size:12px;color:#6b6157"><span>© Pam Berger. Peças autorais protegidas por direito autoral. · <a href="privacidade.html" style="color:inherit;text-decoration:underline;text-underline-offset:2px">Privacidade</a> · <button type="button" onclick="return pbPreferencias(event)" style="background:none;border:0;padding:0;font:inherit;color:inherit;text-decoration:underline;text-underline-offset:2px;cursor:pointer">Preferências de cookies</button></span><span>feito à mão · feito com tempo · feito com intenção</span></div>
+</footer></body>
+</html>
